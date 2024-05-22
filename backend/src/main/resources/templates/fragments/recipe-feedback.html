@@ -4,13 +4,15 @@
     <th:block th:fragment="Feedback">
       <div class="border-1 mt-8 w-full rounded-2xl bg-goldgray p-8 md:mt-0">
         <h2 class="mb-4 font-space text-3xl font-bold">Feedback</h2>
+        <!-- todo #10: Feedback beim Laden der Seite lesen
+
+        hx-trigger: load
+        hx-get: "@{'/recipes/' + ${recipeId} + '/feedback'}"
+        -->
         <div
           id="feedbackList"
-          hx-trigger="load"
-          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(slowdown=1200)}"
-          hx-swap="innerHTML"
         >
-          <!-- Initial Feedback List: intentionally empty -->
+          No feedback loaded yet.
         </div>
 
         <!-- todo #12: Loading Indicator
