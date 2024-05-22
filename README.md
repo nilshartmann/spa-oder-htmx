@@ -41,7 +41,7 @@ In either way, the backend runs on http://localhost:8080.
 
 ## Using the HTMX frontend
 
-Please see `backend/readme.md` for more informations.
+Please see `backend/readme.md` for more information.
 
 ## Running the SPA frontend
 
