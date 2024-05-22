@@ -4,27 +4,46 @@
     <th:block th:fragment="Feedback">
       <div class="border-1 mt-8 w-full rounded-2xl bg-goldgray p-8 md:mt-0">
         <h2 class="mb-4 font-space text-3xl font-bold">Feedback</h2>
+        <!-- todo #10: Feedback beim Laden der Seite lesen
+
+        - hx-trigger: load
+        - get: "@{'/recipes/' + ${recipeId} + '/feedback'}"
+        - was passiert, wenn wir für hx:trigger einen falschen Wert angeben 🤔
+        -->
         <div
-          id="feedbackList"
-          hx-trigger="load"
-          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(slowdown=1200)}"
-          hx-indicator="#feedbackListIndicator"
-          hx-swap="innerHTML"
+            id="feedbackList"
+            hx-trigger="load"
+            th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(slowdown=2400)}"
+            hx-indicator="#feedbackListIndicator"
         >
-          <!-- Initial Feedback List: intentionally empty -->
+          No feedback loaded yet.
         </div>
-        <div
-          id="feedbackListIndicator"
-          class="Spinner"
-          th:insert="~{::FeedbackLoadingIndicator}"
-        />
+
+        <div id="feedbackListIndicator"
+             th:insert="~{::FeedbackLoadingIndicator}"
+             class="Spinner"
+        ></div>
+
+        <!-- todo #12: Loading Indicator
+         - zeigen: was passiert, wenn wir den Request langsam machen?
+           '(slowdown=2400)}"
+           - beim ersten Aufruf
+           - beim Blättern durch die Bewertungen
+
+         - neues div feedbackListIndicator
+              - verwendet  th:insert="~{::FeedbackLoadingIndicator}"
+              - class="Spinner"
+         - oben als hx-indicator eintragen
+         - wichtig: das Element wird mit einer zusätzlichen CSS-Klasse versehen,
+            es verschwindet aber nicht (nur optisch)
+        -->
       </div>
     </th:block>
 
     <div th:fragment="FeedbackList">
       <div
-        th:each="f : ${feedback}"
-        class="mb-8 rounded-2xl border border-dotted border-gray-300 bg-white pb-8 pe-4 ps-4 pt-4 font-inter text-gray-500"
+          th:each="f : ${feedback}"
+          class="mb-8 rounded-2xl border border-dotted border-gray-300 bg-white pb-8 pe-4 ps-4 pt-4 font-inter text-gray-500"
       >
         <div class="flex items-end justify-between">
           <div class="font-medium">[[${f.commenter} ]]</div>
@@ -37,30 +56,35 @@
       <div class="flex w-full justify-center space-x-12">
         <!-- todo #17:
           - in die a-Links wird eine URL geschrieben, in der die geöffnete Feedback-Seite enthalten ist
-          - das Feature ist aber nicht implementiert
-          - warum nicht: wir können mit HTMX nicht auf die URL zugreifen
-          - wir müssten das im Server behandeln. Wie?
-          -  ⚠️ wir brauchen mehrere Endpunkte im Server (für ganze Seite und für inkrementelle Änderungen)
+
+          - warum haben wir hier DREI urls? 🤔🤔🤔🤔
+
+          - wenn wir eine Seite mit feedback_page-Aufrufen, wird der Parameter nicht ausgewertet
+            - warum nicht?
+            - was müssten wir tun?
+            -  ⚠️ wir brauchen mehrere Endpunkte im Server (für ganze Seite und für inkrementelle Änderungen)
         -->
         <a
-          th:if="${feedback.hasPrev}"
-          th:href="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
-          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.prevPage})}"
-          hx-target="#feedbackList"
-          hx-indicator="#feedbackListIndicator"
-          hx-swap="innerHTML"
-          class="mb-2 mt-2 transform items-center justify-center rounded bg-orange_2 p-2 px-4 py-2 font-barlow font-normal text-white transition-all duration-500 ease-in-out hover:cursor-pointer hover:bg-orange_2-500 hover:underline hover:shadow-lg"
+            th:if="${feedback.hasPrev}"
+            th:href="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
+            th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.prevPage})}"
+            th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
+            hx-target="#feedbackList"
+            hx-indicator="#feedbackListIndicator"
+            hx-swap="innerHTML"
+            class="mb-2 mt-2 transform items-center justify-center rounded bg-orange_2 p-2 px-4 py-2 font-barlow font-normal text-white transition-all duration-500 ease-in-out hover:cursor-pointer hover:bg-orange_2-500 hover:underline hover:shadow-lg"
         >
           &lt;
         </a>
         <a
-          th:if="${feedback.hasNext}"
-          th:href="@{'/recipes/' + ${recipeId} + ''(feedback_page=${feedback.nextPage})}"
-          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.nextPage},slowdown=2400)}"
-          hx-target="#feedbackList"
-          hx-indicator="#feedbackListIndicator"
-          hx-swap="innerHTML"
-          class="mb-2 mt-2 transform items-center justify-center rounded bg-orange_2 p-2 px-4 py-2 font-barlow font-normal text-white transition-all duration-500 ease-in-out hover:cursor-pointer hover:bg-orange_2-500 hover:underline hover:shadow-lg"
+            th:if="${feedback.hasNext}"
+            th:href="@{'/recipes/' + ${recipeId} + ''(feedback_page=${feedback.nextPage})}"
+            th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.nextPage},slowdown=2400)}"
+            th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.nextPage})}"
+            hx-target="#feedbackList"
+            hx-indicator="#feedbackListIndicator"
+            hx-swap="innerHTML"
+            class="mb-2 mt-2 transform items-center justify-center rounded bg-orange_2 p-2 px-4 py-2 font-barlow font-normal text-white transition-all duration-500 ease-in-out hover:cursor-pointer hover:bg-orange_2-500 hover:underline hover:shadow-lg"
         >
           &gt;
         </a>
@@ -70,13 +94,13 @@
     <th:block th:fragment="FeedbackLoadingIndicator">
       <div class="mb-4 block text-2xl text-red">Loading Feedback</div>
       <div class="bounce bounce1">
-        <img th:src="@{/logo.png}" />
+        <img th:src="@{/logo.png}"/>
       </div>
       <div class="bounce bounce2">
-        <img th:src="@{/logo.png}" />
+        <img th:src="@{/logo.png}"/>
       </div>
       <div class="bounce bounce3">
-        <img th:src="@{/logo.png}" />
+        <img th:src="@{/logo.png}"/>
       </div>
     </th:block>
   </body>

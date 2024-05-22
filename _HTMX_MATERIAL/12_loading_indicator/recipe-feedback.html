@@ -56,15 +56,19 @@
       <div class="flex w-full justify-center space-x-12">
         <!-- todo #17:
           - in die a-Links wird eine URL geschrieben, in der die geöffnete Feedback-Seite enthalten ist
-          - das Feature ist aber nicht implementiert
-          - warum nicht: wir können mit HTMX nicht auf die URL zugreifen
-          - wir müssten das im Server behandeln. Wie?
-          -  ⚠️ wir brauchen mehrere Endpunkte im Server (für ganze Seite und für inkrementelle Änderungen)
+
+          - warum haben wir hier DREI urls? 🤔🤔🤔🤔
+
+          - wenn wir eine Seite mit feedback_page-Aufrufen, wird der Parameter nicht ausgewertet
+            - warum nicht?
+            - was müssten wir tun?
+            -  ⚠️ wir brauchen mehrere Endpunkte im Server (für ganze Seite und für inkrementelle Änderungen)
         -->
         <a
             th:if="${feedback.hasPrev}"
             th:href="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
             th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.prevPage})}"
+            th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
             hx-target="#feedbackList"
             hx-indicator="#feedbackListIndicator"
             hx-swap="innerHTML"
@@ -76,6 +80,7 @@
             th:if="${feedback.hasNext}"
             th:href="@{'/recipes/' + ${recipeId} + ''(feedback_page=${feedback.nextPage})}"
             th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.nextPage},slowdown=2400)}"
+            th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.nextPage})}"
             hx-target="#feedbackList"
             hx-indicator="#feedbackListIndicator"
             hx-swap="innerHTML"
