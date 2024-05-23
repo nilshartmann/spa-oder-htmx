@@ -31,6 +31,7 @@ export default function SearchPage() {
           <Input
             type="search"
             name="search"
+            autoComplete="off"
             aria-label="Enter at least three chars to start searching for recipes"
             className="h-8 p-6 hover:shadow-lg"
             value={search}

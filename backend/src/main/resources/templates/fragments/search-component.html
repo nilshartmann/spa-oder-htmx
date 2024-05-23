@@ -2,7 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <body>
     <th:block th:fragment="recipeSearch">
-      <!-- todo: title mit 'search' im Text -->
+      <!-- todo:
+        - title mit '${search}' im Text
+
+        - vergleichen mit SPA: dort ändert sich der Titel schon bei Tastendruck
+          - dafür bräuchten wir hier wieder JavaScript
+
+      -->
 
       <div th:if="${recipse.isEmpty()}">
         <p>Keine Treffer!</p>
@@ -31,16 +37,20 @@
               <h2 class="font-space text-2xl font-bold">
                 <!-- todo:
 
-                hx-get und hx-push-url
-                target muss 'main' sein
-                  (ist das eigentlich ein Problem?)
+                - 🤔  warum verwenden hier nicht den Link "als Link"?
+                - 🤔  ...warum brauchen wir "SPA-Verhalten"?
+
+                - hx-get, analog zu href
+                - hx-push-url, analog zu href
+                - target muss 'main' sein
+                    ^-- 🤔 ist das eigentlich ein Problem?
                 -->
                 <a
                   th:href="@{${'/recipes/' + recipe.id}}"
                   class="cursor-pointer hover:text-orange_2 hover:underline"
                   th:text="${recipe.title}"
                 >
-                  Recipse
+                  Recipes
                 </a>
               </h2>
             </div>
@@ -81,7 +91,6 @@
       <th:block
         th:replace="fragments/components :: RecipeCategories(recipe=${recipe}, hideTime=false)"
       />
-      <!--      <RecipeCategories recipe={data.recipe} />-->
     </div>
   </body>
 </html>
