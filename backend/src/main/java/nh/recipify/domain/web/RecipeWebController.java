@@ -93,7 +93,9 @@ public class RecipeWebController {
         model.addAttribute("hasMore", recipes.hasNext());
         model.addAttribute("nextPage", recipes.getNumber() + 1);
 
-        return MultiViews.of("search :: pagination", "search :: searchResult");
+        // todo #40:
+        //   - als erstes View: "search :: pagination",
+        return MultiViews.of("search :: searchResult");
     }
 
     @GetMapping(value = "/search/reset", headers = "HX-Request")

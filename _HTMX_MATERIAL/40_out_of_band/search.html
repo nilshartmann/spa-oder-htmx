@@ -35,16 +35,27 @@
             aria-label="Enter at least three chars to start searching for recipes"
             class="h-8 w-full max-w-full rounded border border-gray-400 bg-white p-6 text-gray-500 hover:shadow-lg"
             th:value="${search}"
+            hx-swap="outerHTML"
+            hx-get="/search?slowdown=2400"
+            hx-trigger="input[target.value.length > 2] changed delay:200ms"
+            hx-target="#searchResult"
+            hx-indicator="#searchIndicator"
+            hx-on:input="handleInputChange(event)"
+
         />
         <!-- todo 32:
          - hx-get auf /search/reset
             -> was macht das?
-         - hx-swap outerHTML
+          - swap outerHTML
          - hx-target main
          - hx-push-purl auf /
         -->
         <button
             class="ms-2 cursor-pointer text-gray-500 underline hover:text-gray-900"
+            hx-get="/search/reset"
+            hx-swap="outerHTML"
+            hx-target="main"
+            hx-push-url="/"
         >
           Clear
         </button>
@@ -70,6 +81,7 @@
       <!--
       todo #40 Pagination/out-of-band-swap:
 
+        - th:fragment="pagination"
         - id="moreField"
         - hx-swap-oob="true"
 
@@ -78,6 +90,8 @@
       <div
           class="container mx-auto mt-2 flex w-1/4 justify-center space-y-8 rounded-lg pb-8"
           th:fragment="pagination"
+          id="moreField"
+          hx-swap-oob="true"
       >
         <a
             th:href="@{/search(page=${nextPage},search=${search})}"
