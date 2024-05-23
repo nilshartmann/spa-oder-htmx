@@ -91,12 +91,12 @@
         function handleInputChange(e) {
           const hint = document.getElementById("inputHint");
 
-          // todo: wenn laenge < 3, dann class 'opacity.0' entfernen
-          // sonst hinzufügen:
-          //   elem.classList.add / .remove
-
-          //  (initial hat das Label keine "Unsichtbarkeit", deswegen ist es
-          //   von anfang an sichtbar)
+          const shouldShowInputHint = e.target.value.length < 3;
+          if (shouldShowInputHint) {
+            hint.classList.remove("opacity-0");
+          } else {
+            hint.classList.add("opacity-0");
+          }
         }
       </script>
     </main>
