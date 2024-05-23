@@ -1,28 +1,33 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
   <body>
-      <!-- todo
-       - hx-post auf /newsletter
-       - 🤔 was passiert, wenn wir KEINE hx-swap-Angabe machen?
-       - Untersuchen: Netzwerkverkehr, was wird geschickt
-       - slowdown und hx-disabled-elt
-       -                  ^-- das setzt "nur" disabled state.
-       -                  ^-- was würden wir für Wartemeldung machen?
-       -->
-      <form th:fragment="NewsletterRegistration"
+    <!-- todo
+     - hx-post auf /newsletter
+     - 🔎 Untersuchen: Netzwerkverkehr, was wird geschickt
+     - 🤔 was passiert, wenn wir KEINE hx-swap-Angabe machen?
+     - slowdown und hx-disabled-elt, z.B. this, input, button
+     -                  ^-- ⚠️ das setzt "nur" disabled state.
+     -                  ^-- 🤔 was würden wir für Wartemeldung machen?
+     -                  ^-- 🤔 wie können wir Submit blockieren, bis Eingabe erfolgt ist
+     -                  ^-- 🤔 wie würden wir das Formular zurücksetzen?
+     -                         (erst "Subscribed" anzeigen, bei Keypress Form zurücksetzen)
+     -
+     -->
+    <form th:fragment="NewsletterRegistration"
           class="max-w-1/4 flex items-center space-x-4 pe-2 ps-2 font-barlow"
-      >
-        <div>Don't miss new recipes. Subscribe to newsletter</div>
-        <div class="max-w-64">
-          <input
-              name="newsletterEmail"
-              type="email"
-              class="h-8 w-full max-w-full rounded border border-gray-400 bg-white p-2 text-gray-500 disabled:bg-gray-200"
-              th:value="${newsletterEmail}"
-              placeholder="E-Mail"
-          />
-        </div>
-        <div>
+    >
+      <label for="newsletterEmailInput">Don't miss new recipes. Subscribe to newsletter</label>
+      <div class="max-w-64">
+        <input
+            id="newsletterEmailInput"
+            name="newsletterEmail"
+            type="email"
+            class="h-8 w-full max-w-full rounded border border-gray-400 bg-white p-2 text-gray-500 disabled:bg-gray-200"
+            th:value="${newsletterEmail}"
+            placeholder="E-Mail"
+        />
+      </div>
+      <div>
           <span
               th:replace="~{fragments/components :: Button (content=~{:: #subscribeButton}, checked=${newsletterResult == 'success'}, disabled=false)}"
           >
@@ -32,7 +37,7 @@
                 th:text="${newsletterResult == 'success' ? 'Subscribed!' : 'Subscribe'}"
             >Subscribe</button>
           </span>
-        </div>
-      </form>
+      </div>
+    </form>
   </body>
 </html>
