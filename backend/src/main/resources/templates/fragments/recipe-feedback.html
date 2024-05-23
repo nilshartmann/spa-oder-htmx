@@ -11,9 +11,17 @@
         -->
         <div
           id="feedbackList"
+          hx-trigger="load"
+          hx-indicator="#loadingIndicator"
+          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(slowdown=2400)}"
         >
           No feedback loaded yet.
         </div>
+        <div
+            id="loadingIndicator"
+            th:insert="~{::FeedbackLoadingIndicator}"
+        class="Spinner"
+        ></div>
 
         <!-- todo #12: Loading Indicator
          - neues div feedbackListIndicator
@@ -50,6 +58,7 @@
         <a
           th:if="${feedback.hasPrev}"
           th:href="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
+          th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
           th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.prevPage})}"
           hx-target="#feedbackList"
           hx-indicator="#feedbackListIndicator"
@@ -61,7 +70,8 @@
         <a
           th:if="${feedback.hasNext}"
           th:href="@{'/recipes/' + ${recipeId} + ''(feedback_page=${feedback.nextPage})}"
-          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.nextPage},slowdown=2400)}"
+          th:hx-push-url="@{'/recipes/' + ${recipeId}(feedback_page=${feedback.prevPage})}"
+          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(page=${feedback.nextPage})}"
           hx-target="#feedbackList"
           hx-indicator="#feedbackListIndicator"
           hx-swap="innerHTML"

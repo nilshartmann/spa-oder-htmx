@@ -14,7 +14,11 @@
      -
      -->
     <form th:fragment="NewsletterRegistration"
+          hx-post="/newsletter?slowdown=2400"
+          hx-disabled-elt="this, input, button"
+          hx-swap="outerHTML"
           class="max-w-1/4 flex items-center space-x-4 pe-2 ps-2 font-barlow"
+
     >
       <label for="newsletterEmailInput">Don't miss new recipes. Subscribe to newsletter</label>
       <div class="max-w-64">
