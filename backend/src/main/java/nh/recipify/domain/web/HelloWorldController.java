@@ -22,4 +22,11 @@ public class HelloWorldController {
       - Antwort z.B. "hello-response :: response"
      */
 
+    @GetMapping(path = "/hello-world",
+        headers = "HX-Request"
+    )
+    public String helloWorld() {
+        return "hello-response :: response";
+    }
+
 }

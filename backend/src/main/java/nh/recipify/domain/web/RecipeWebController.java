@@ -95,7 +95,7 @@ public class RecipeWebController {
 
         // todo #40:
         //   - als erstes View: "search :: pagination",
-        return MultiViews.of("search :: searchResult");
+        return MultiViews.of("search :: pagination","search :: searchResult");
     }
 
     @GetMapping(value = "/search/reset", headers = "HX-Request")
