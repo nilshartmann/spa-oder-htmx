@@ -15,8 +15,9 @@ export function NewsletterRegistration() {
     setEmail(e);
   };
 
-  const handleSubmit = () => {
-    mutation.mutate(email);
+  const handleSubmit = async () => {
+    await mutation.mutateAsync(email);
+    setEmail("");
   };
 
   return (
@@ -34,13 +35,10 @@ export function NewsletterRegistration() {
       </div>
       <div>
         <Button disabled={saveDisabled} checked={mutation.isSuccess}>
-          {mutation.isSuccess ? (
-            "Subscribed!"
-          ) : (
-            <button onClick={handleSubmit}>Subscribe</button>
-          )}
+          <button onClick={handleSubmit}>Subscribe</button>
         </Button>
       </div>
+      <div>{mutation.isSuccess && "Subscribed!"}</div>
     </div>
   );
 }
