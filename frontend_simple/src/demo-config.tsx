@@ -14,12 +14,12 @@ export const slowDown_searchDetails = 0;
 export const slowDown_GetRecipe = 0;
 
 /** list of feedback on /$recipeId */
-export const slowDown_GetFeedback = 0;
+export const slowDown_GetFeedback = 2400;
 
 /** delay after submitting the add feedback form */
-export const slowDown_AddFeedback = 0;
+export const slowDown_AddFeedback = 2400;
 
 /** delay after submitting the newsletter form
  * note that there is a default delay of 250ms in the server
  * */
-export const slowDown_SubscribeNewsletter = 0;
+export const slowDown_SubscribeNewsletter = 2400;

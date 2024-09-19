@@ -31,6 +31,10 @@
          - 🤔 was passiert, wenn wir etwas eingeben, während die Suche läuft?
          -->
         <input
+            hx-get="/search?slowdown=2400"
+            hx-trigger="input[target.value.length > 2] changed delay:200ms"
+            hx-target="#searchResult"
+            hx-on:input="handleInputChange(event)"
             type="search"
             name="search"
             id="searchField"
@@ -48,6 +52,9 @@
         -->
         <button
             class="ms-2 cursor-pointer text-gray-500 underline hover:text-gray-900"
+            hx-get="/search/reset"
+            hx-swap="outerHTML"
+            hx-target="main"
         >
           Clear
         </button>

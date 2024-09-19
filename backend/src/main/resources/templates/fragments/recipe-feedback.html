@@ -19,6 +19,9 @@
         -->
         <div
           id="feedbackList"
+          hx-trigger="load"
+          th:hx-get="@{'/recipes/' + ${recipeId} + '/feedback'(slowdown=2400)}"
+          hx-indicator="#feedbackListIndicator"
         >
           No feedback loaded yet.
         </div>

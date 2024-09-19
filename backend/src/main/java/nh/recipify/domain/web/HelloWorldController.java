@@ -14,6 +14,11 @@ public class HelloWorldController {
         return "hello-world";
     }
 
+    @GetMapping(path = "hello-world")
+    String helloWorld() {
+        return "hello-response :: response";
+    }
+
     /*
      TODO
 
