@@ -1,30 +1,27 @@
-import { formatDate } from "../../../../components/formatters.ts";
-import { useGetRecipeFeedbackQuery } from "../../../../components/use-queries.ts";
-import { Link, useSearch } from "@tanstack/react-router";
-import { PageButton } from "../../../../components/Button.tsx";
-import { ReactNode } from "react";
+import {formatDate} from "../../../../components/formatters.ts";
+import {useGetRecipeFeedbackQuery} from "../../../../components/use-queries.ts";
+import {Link} from "@tanstack/react-router";
+import {PageButton} from "../../../../components/Button.tsx";
+import {ReactNode} from "react";
 
 type FeedbackListProps = {
-  recipeId: string;
+	recipeId: string;
+	feedbackPage: number;
 };
-export default function FeedbackList({ recipeId }: FeedbackListProps) {
-  const feedbackPage = useSearch({
-    from: "/recipes/$recipeId/",
-    select: (s) => s.feedback_page,
-  });
+export default function FeedbackList({recipeId, feedbackPage}: FeedbackListProps) {
 
-  const { data } = useGetRecipeFeedbackQuery(recipeId, feedbackPage);
+	const {data} = useGetRecipeFeedbackQuery(recipeId, feedbackPage);
 
-  return (
-    <>
-      {data.content.map((f) => {
-        return (
-          <div
-            key={f.id}
-            className={
-              "mb-8 rounded-2xl border border-dotted border-gray-300 bg-white pb-8 pe-4 ps-4 pt-4"
-            }
-          >
+	return (
+		<>
+			{data.content.map((f) => {
+				return (
+					<div
+						key={f.id}
+						className={
+							"mb-8 rounded-2xl border border-dotted border-gray-300 bg-white pb-8 pe-4 ps-4 pt-4"
+						}
+					>
             <span className={"font-inter text-gray-500"}>
               <div className={"flex items-end justify-between"}>
                 <div className={"font-medium"}>{f.commenter} </div>
@@ -32,37 +29,37 @@ export default function FeedbackList({ recipeId }: FeedbackListProps) {
               </div>
               <div className={"mt-4"}>{f.comment}</div>
             </span>
-          </div>
-        );
-      })}
-      <div className="flex w-full justify-center space-x-12">
-        {data.hasPrevious && (
-          <PageLinkButton page={feedbackPage - 1}>&lt;</PageLinkButton>
-        )}
-        {data.hasNext && (
-          <PageLinkButton page={feedbackPage + 1}>&gt;</PageLinkButton>
-        )}
-      </div>
-    </>
-  );
+					</div>
+				);
+			})}
+			<div className="flex w-full justify-center space-x-12">
+				{data.hasPrevious && (
+					<PageLinkButton page={feedbackPage - 1}>&lt;</PageLinkButton>
+				)}
+				{data.hasNext && (
+					<PageLinkButton page={feedbackPage + 1}>&gt;</PageLinkButton>
+				)}
+			</div>
+		</>
+	);
 }
 
 type PageLinkButtonProps = {
-  page: number;
-  children: ReactNode;
+	page: number;
+	children: ReactNode;
 };
 
-function PageLinkButton({ page, children }: PageLinkButtonProps) {
-  return (
-    <PageButton>
-      <Link
-        replace={true}
-        from={"/recipes/$recipeId"}
-        to={"/recipes/$recipeId"}
-        search={(s) => ({ ...s, feedback_page: page })}
-      >
-        {children}
-      </Link>
-    </PageButton>
-  );
+function PageLinkButton({page, children}: PageLinkButtonProps) {
+	return (
+		<Link
+			replace={true}
+			from={"/recipes/$recipeId"}
+			to={"/recipes/$recipeId"}
+			search={(s) => ({...s, feedback_page: page})}
+		>
+			<PageButton>
+				{children}
+			</PageButton>
+		</Link>
+	);
 }
