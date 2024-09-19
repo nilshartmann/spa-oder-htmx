@@ -94,7 +94,8 @@ public class RecipeWebController {
         model.addAttribute("nextPage", recipes.getNumber() + 1);
 
         // todo #40:
-        //   - als erstes View: "search :: pagination",
+        //   - als erstes View: "search :: pagination":
+        //       return MultiViews.of("search :: pagination", "search :: searchResult");
         return MultiViews.of("search :: searchResult");
     }
 

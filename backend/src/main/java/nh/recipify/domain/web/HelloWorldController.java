@@ -17,7 +17,7 @@ public class HelloWorldController {
     /*
      TODO
 
-     - Template hello-response.html mit th:fragment anlegen
+     - Template hello-response.html mit th:fragment zeigen
      - /hello-world-Mapping mit headers=HX-Request
       - Antwort z.B. "hello-response :: response"
      */

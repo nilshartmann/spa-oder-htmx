@@ -5,12 +5,12 @@
      - hx-post auf /newsletter
      - 🔎 Untersuchen: Netzwerkverkehr, was wird geschickt
      - 🤔 was passiert, wenn wir KEINE hx-swap-Angabe machen?
+     -       hx-swap="outerHTML"
      - slowdown und hx-disabled-elt, z.B. this, input, button
      -                  ^-- ⚠️ das setzt "nur" disabled state.
-     -                  ^-- 🤔 was würden wir für Wartemeldung machen?
      -                  ^-- 🤔 wie können wir Submit blockieren, bis Eingabe erfolgt ist
      -                  ^-- 🤔 wie würden wir das Formular zurücksetzen?
-     -                         (erst "Subscribed" anzeigen, bei Keypress Form zurücksetzen)
+     -                         (Use-Case: erst "Subscribed" anzeigen, bei Keypress Form zurücksetzen)
      -
      -->
     <form th:fragment="NewsletterRegistration"

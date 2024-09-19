@@ -10,8 +10,10 @@
     <main th:fragment="main">
       <div class="container mx-auto mt-8 flex max-w-96 pt-8">
         <!-- todo 35:
+            - Eingabe-Hinweis entfernen
             - handleInputChange Implementierung zeigen (unten)
-            - hx-on:input handleInputChange aufrufen
+            - hx-on:input="handleInputChange(event)"
+
 
             - Das geht, aber:
               -  ⚠️ `handleInputChange` wird von IDEA als nicht verwendet markiert
@@ -19,9 +21,10 @@
         -->
 
         <!-- todo 30:
-         - hx-get /search
+         - hx-get="/search?slowdown=2400"
          - hx-trigger="input[target.value.length > 2] changed delay:200ms"
                           ^-- 🤔 was bedeutet das?
+                          ^-- eigene "DSL"
          - hx-target #searchResult
          - hx-indicator #searchIndicator
               ^-- mit Loading-Indicator vergleichen, der in SPA werkelt
@@ -39,9 +42,9 @@
         <!-- todo 32:
          - hx-get auf /search/reset
             -> was macht das?
-         - hx-swap outerHTML
-         - hx-target main
-         - hx-push-purl auf /
+         - hx-swap="outerHTML"
+         - hx-target="main"   -> die ganze Seite muss neu gemacht werden
+         - hx-push-url="/"
         -->
         <button
             class="ms-2 cursor-pointer text-gray-500 underline hover:text-gray-900"

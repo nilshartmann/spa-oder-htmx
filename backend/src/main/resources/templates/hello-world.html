@@ -1,14 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <body>
-
+  <head>
+    <title>Hello HTMX-World!</title>
     <script
-      type="text/javascript"
-      th:src="@{/htmx/htmx-1.9.10.min.js}"
+        type="text/javascript"
+        th:src="@{/htmx/htmx-1.9.10.min.js}"
     ></script>
 
+  </head>
+  <body>
 
     <!-- todo -->
-    <!-- div mit hx-trigger "click" auf hx-get "/hello-world" -->
+    <!-- Neues div:
+        hx-get="/hello-world"
+        hx-trigger="click"
+        hx-target="#result"
+         -->
+
+    <div id="result">
+
+    </div>
+
+
   </body>
 </html>
