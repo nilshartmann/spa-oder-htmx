@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="TestBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+    <module name="backend" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="nh.recipify.TestBackendApplication" />
+    <option name="WORKING_DIRECTORY" value="file://$MODULE_DIR$" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="nh.recipify.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
