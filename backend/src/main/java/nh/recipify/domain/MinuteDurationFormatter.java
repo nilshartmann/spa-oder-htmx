@@ -8,7 +8,7 @@ import java.util.Locale;
 
 @Component("durationFormatter")
 public class MinuteDurationFormatter {
-    public String formatMinutes(int minutes) {
+    public static String formatMinutes(int minutes) {
         int hours = minutes / 60;
         int remainingMinutes = minutes % 60;
 
@@ -23,7 +23,7 @@ public class MinuteDurationFormatter {
         return hoursText + minutesText;
     }
 
-    public String formatDate(LocalDateTime dateTime) {
+    public static String formatDate(LocalDateTime dateTime) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd. MMMM yyyy", Locale.ENGLISH);
         return dateTime.format(formatter);
     }

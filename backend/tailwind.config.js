@@ -3,13 +3,14 @@ import defaultTheme from "tailwindcss/defaultTheme";
 
 const colors = require("tailwindcss/colors");
 module.exports = {
-  content: ["./src/main/resources/templates/**/*.{html,js}"],
+  content: [
+    "./src/main/resources/templates/**/*.{html,js}",
+    "./src/jte/**/*.{jte}",
+  ],
   // 'opacity-0' wird beim Live Coding hinzugefuegt.
   //  Damit man waehrenddessen nicht das Build-Tool starten muss,
   //  hier "safelist"en
-  safelist: [
-    'opacity-0',
-  ],
+  safelist: ["opacity-0"],
   theme: {
     colors: {
       // tailwind:

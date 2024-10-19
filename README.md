@@ -8,7 +8,7 @@ This is a sample application for various frontend technologies (React SPA and HT
 
 **Backend:**
 
-- Java (JDK21), Spring Boot 3.2
+- Java (JDK23), Spring Boot 3.4
 - Postgres 16
 - Spring WebMVC and Thymeleaf for HTMX "backend"
 
