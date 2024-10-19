@@ -1,4 +1,0 @@
-rootProject.name = 'recipify'
-
-
-include 'recipify-backend'
